@@ -1,4 +1,4 @@
-<!--app/templates/index.html-->
+<!--
 <div id="message_panel"></div>
 <button onclick="getMessage()">Get message</button>
 <script>
@@ -7,5 +7,25 @@
     var result = await resp.json();
     var messagePanel = document.getElementById('message_panel');
     messagePanel.innerHTML = result.message;
+  }
+</script>
+-->
+<input id="keyword">
+<button onclick="searchProduct()">Search</button>
+<div id='product_panel'></div>
+<script>
+  async function searchProduct() {
+    var keyword = document.getElementById('keyword').value;
+    var resp = await fetch('/search_product?keyword='+keyword);
+    var result = await resp.json();
+    //alert(result.length);
+    //console.log(result);
+    var html = `<ul>` 
+                + result.map(p => (
+                    `<li>${p.name}</li>`
+                    )
+                ).join('')    
+                + `</ul>`;
+    document.getElementById('product_panel').innerHTML = html;
   }
 </script>

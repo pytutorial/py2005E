@@ -4,4 +4,5 @@ from .views import *
 urlpatterns = [
     path('', index),
     path('hello', hello),
+    path('search_product', searchProduct),
 ]
