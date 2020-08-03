@@ -1,0 +1,36 @@
+from app.models import *
+
+Product.objects.all()
+-- SELECT * FROM app_product
+
+Product.objects.get(pk=1)
+-- SELECT * FROM app_product WHERE id=1
+
+Product.objects.get(code='IPX')
+-- SELECT * FROM app_product WHERE code='IPX'
+
+Product.objects.filter(name__contains='IPhone')
+-- SELECT * FROM app_product WHERE name LIKE '%IPhone%'
+
+Product.objects.filter(name__startswith='IPhone')
+-- SELECT * FROM app_product WHERE name LIKE 'IPhone%'
+
+Product.objects.filter(name__endswith='IPhone')
+-- SELECT * FROM app_product WHERE name LIKE '%IPhone'
+
+Product.objects.filter(price__gt=10.0)
+-- SELECT * FROM app_product WHERE price > 10.0
+-- lt (less than), gte (greater than or equal), lte (less than or equal)
+
+Product.objects.filter(name__contains='IPhone', price__lt=10.0)
+Product.objects.filter(name__contains='IPhone').filter(price__lt=10.0)
+-- SELECT * from app_product WHERE name LIKE '%IPhone%'
+--                             AND price < 10.0
+
+from django.db.models import Q
+Product.objects.filter(Q(code__contains='IP')|Q(name__contains='IP'))
+-- SELECT * FROM app_product WHERE code LIKE '%IP%' 
+--                              OR name LIKE '%IP%'
+
+Product.objects.filter(~Q(code='IPX'))
+-- SELECT * FROM app_product WHERE code <> 'IPX'
