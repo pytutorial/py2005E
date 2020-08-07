@@ -1,0 +1,12 @@
+<!--app/template/product
+    /list.html-->
+<ul>
+  {%for p in productList %}
+  <li>{{p.name}}
+    <a href='{% url "update-product" p.id %}'>Chỉnh sửa</a>
+  </li>
+  {% endfor %}
+</ul>
+<a href='{% url "create-product" %}'>
+  Thêm mới sản phẩm
+</a>
