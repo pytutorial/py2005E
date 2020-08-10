@@ -48,7 +48,16 @@ def createProduct(request):
     return render(request, 'product/form.html', {'form': form})    
 
 def updateProduct(request, pk):
-    return render(request, 'product/form.html')
+    p = Product.objects.get(pk=pk)
+    form = ProductForm(instance=p)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=p)
+        if form.is_valid(): 
+            form.save()
+            return redirect('list-product')
+    return render(request, 'product/form.html', {'form': form})
 
 def deleteProduct(request, pk):
+    p = Product.objects.get(pk=pk)
+    p.delete()
     return redirect('list-product')    

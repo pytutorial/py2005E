@@ -9,3 +9,10 @@
     {% endfor %}
 </ul>
 <a href='/create_product'>Thêm mới sản phẩm</a>
+<script>
+   function deleteProduct(id){
+       if(confirm('Bạn có muốn xóa')){
+           location.href = '/delete_product/' + id;
+       }
+   } 
+</script>

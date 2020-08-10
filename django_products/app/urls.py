@@ -10,5 +10,4 @@ urlpatterns =[
     path('create_product', createProduct, name='create-product'),
     path('update_product/<pk>', updateProduct, name='update-product'),
     path('delete_product/<pk>', deleteProduct, name='delete-product'),
-
 ]
