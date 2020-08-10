@@ -1,0 +1,8 @@
+<form method="POST">
+  {%csrf_token%}
+  <table>
+    {{form}}
+  </table>
+  <button type="submit">Lưu lại</button>
+  <a href="{% url 'home' %}">Quay lại</a>
+</form>
