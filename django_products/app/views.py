@@ -15,3 +15,22 @@ def addCategory(request):
             return redirect('home')
 
     return render(request, 'category/form.html', {'form': form})
+
+def updateCategory(request, pk):
+    category = Category.objects.get(pk=pk)
+    form = CategoryForm(instance=category)
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    return render(request, 'category/form.html', {'form': form})
+
+
+def deleteCategory(request, pk):
+    category = Category.objects.get(pk=pk)
+    category.delete()
+    return redirect('home')
+
