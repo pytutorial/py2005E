@@ -5,11 +5,15 @@
   <h3>Thông tin nhóm sản phẩm</h3>
   <form method="POST">
     {%csrf_token%}
-    <table class="table">
+    <table class="table table-form">
       {{form}}
     </table>
     <button class="btn btn-primary" type="submit">Lưu lại</button>
     <a class="btn btn-secondary" href="{% url 'home' %}">Quay lại</a>
   </form>
-
 </div>
+<script>
+  $(document).ready(() => {
+    $('.table-form input').addClass('form-control');
+  })
+</script>
