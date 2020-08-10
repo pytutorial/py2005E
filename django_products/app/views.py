@@ -28,9 +28,27 @@ def updateCategory(request, pk):
 
     return render(request, 'category/form.html', {'form': form})
 
-
 def deleteCategory(request, pk):
     category = Category.objects.get(pk=pk)
     category.delete()
     return redirect('home')
 
+def listProduct(request): #http://localhost:8000/list_product
+    context = {'productList': Product.objects.all()}
+    return render(request, 'product/list.html', context)
+
+def createProduct(request):
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('list-product')
+
+    return render(request, 'product/form.html', {'form': form})    
+
+def updateProduct(request, pk):
+    return render(request, 'product/form.html')
+
+def deleteProduct(request, pk):
+    return redirect('list-product')    
