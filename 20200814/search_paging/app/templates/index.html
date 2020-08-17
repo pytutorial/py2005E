@@ -1,0 +1,79 @@
+<!--app/templates/index.html-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<div class="container pt-3">
+  <form>
+    <div class="row">
+      <div class="col-4">
+        <label>Tên/mã sản phẩm:</label>
+        <input class="form-control" value="{{keyword}}" name="keyword" placeholder="Nhập tên/mã sản phẩm">
+      </div>  
+      <div class="col-4">
+        <label>Giá:</label>
+        <select class="form-control" name="priceRange">
+          <option {%if priceRange == ''%} selected {%endif%} value="">--Tất cả--</option>
+          <option {%if priceRange == '1'%} selected {%endif%} value="1">Dưới 10 triệu</option>
+          <option {%if priceRange == '2'%} selected {%endif%} value="2">Từ 10 đến 15 triệu</option>
+          <option {%if priceRange == '3'%} selected {%endif%} value="3">Trên 15 triệu</option>
+        </select>
+      </div>  
+      <div class="col-4">
+        <label>&nbsp;</label><br>
+        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+      </div>  
+    </div>
+    
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr class="text-center">
+          <th style="width: 5%;">#</th>
+          <th style="width: 30%;">Mã</th>
+          <th style="width: 35%;">Tên</th>
+          <th style="width: 30%;">Giá</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in productList %}
+        <tr class="text-center">
+          <td>{{ forloop.counter|add:start }}</td>
+          <td>{{ p.code }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    <ul class="pagination">
+
+      <li class="page-item">
+        <a href='?page=1&keyword={{keyword}}&priceRange={{priceRange}}'
+          class="page-link"
+        >&laquo;</a>
+      </li>
+
+      <li class="page-item">
+        {%if prevPage > 0 %} 
+          <a href='?page={{prevPage}}&keyword={{keyword}}&priceRange={{priceRange}}' class="page-link"
+          >&lsaquo;</a>
+        {% else %}
+          <a class="page-link">&lsaquo;</a>
+        {%endif%}
+      </li>
+
+      <li class="page-item">
+        <a {%if nextPage <= num_page%}
+           href='?page={{nextPage}}&keyword={{keyword}}&priceRange={{priceRange}}' {%endif%} class="page-link"
+        >&rsaquo;</a>
+      </li>
+
+      <li class="page-item">
+        <a href='?page={{num_page}}&keyword={{keyword}}&priceRange={{priceRange}}' class="page-link"
+        >&raquo;</a>
+      </li>
+    </ul>
+
+    <small>Tổng số bản ghi: {{total}}</small>
+  </form>
+</div>
