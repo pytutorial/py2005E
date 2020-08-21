@@ -1,0 +1,12 @@
+<!--app/templates/page3.html-->
+{% extends 'base.html' %}
+
+{%block navbar %}
+  {% with page=3 %}
+    {{block.super}}
+  {% endwith %}
+{%endblock%}
+
+{%block content %}
+<h1>Page 3</h1>
+{%endblock%}
