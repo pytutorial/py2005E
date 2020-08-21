@@ -1,2 +1,7 @@
 <!--app/templates/index.html-->
 Hello {{user.username}}
+{%if user.is_authenticated %}
+  <a href="/accounts/logout">Logout</a>
+{%else%}
+  <a href="/accounts/login">Login</a>
+{%endif%}    

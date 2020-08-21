@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import *
+from .views_staff import *
 
 urlpatterns =[
-    path('', index, name='home'),    
+    path('list_category', listCategory, name='list-category'),
     path('add_category', addCategory, name='add-category'),
     path('update_category/<pk>', updateCategory, name='update-category'),
     path('delete_category/<pk>', deleteCategory, name='delete-category'),

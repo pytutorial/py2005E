@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import *
 
-def index(request):
+def listCategory(request):
     categoryList = Category.objects.all()
-    return render(request, 'category/list.html', {'categoryList': categoryList})
+    return render(request, 'category/list.html',
+             {'categoryList': categoryList})
 
 def addCategory(request):
     form = CategoryForm()
@@ -12,7 +13,7 @@ def addCategory(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('list-category')
 
     return render(request, 'category/form.html', {'form': form})
 
@@ -24,14 +25,14 @@ def updateCategory(request, pk):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('list-category')
 
     return render(request, 'category/form.html', {'form': form})
 
 def deleteCategory(request, pk):
     category = Category.objects.get(pk=pk)
     category.delete()
-    return redirect('home')
+    return redirect('list-category')
 
 def listProduct(request): #http://localhost:8000/list_product
     context = {'productList': Product.objects.all()}
