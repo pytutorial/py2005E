@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def listCategory(request):
     categoryList = Category.objects.all()
     return render(request, 'category/list.html',
              {'categoryList': categoryList})
 
+@login_required
 def addCategory(request):
     form = CategoryForm()
 
@@ -17,6 +20,7 @@ def addCategory(request):
 
     return render(request, 'category/form.html', {'form': form})
 
+@login_required
 def updateCategory(request, pk):
     category = Category.objects.get(pk=pk)
     form = CategoryForm(instance=category)
@@ -29,15 +33,18 @@ def updateCategory(request, pk):
 
     return render(request, 'category/form.html', {'form': form})
 
+@login_required
 def deleteCategory(request, pk):
     category = Category.objects.get(pk=pk)
     category.delete()
     return redirect('list-category')
 
+@login_required
 def listProduct(request): #http://localhost:8000/list_product
     context = {'productList': Product.objects.all()}
     return render(request, 'product/list.html', context)
 
+@login_required
 def createProduct(request):
     form = ProductForm()
     if request.method == 'POST':
@@ -48,6 +55,7 @@ def createProduct(request):
 
     return render(request, 'product/form.html', {'form': form})    
 
+@login_required
 def updateProduct(request, pk):
     p = Product.objects.get(pk=pk)
     form = ProductForm(instance=p)
@@ -58,6 +66,7 @@ def updateProduct(request, pk):
             return redirect('list-product')
     return render(request, 'product/form.html', {'form': form})
 
+@login_required
 def deleteProduct(request, pk):
     p = Product.objects.get(pk=pk)
     p.delete()
