@@ -1,8 +1,10 @@
 from django.urls import path
 from .views_staff import *
+from django.urls import include
 
 urlpatterns =[
-    path('list_category', listCategory, name='list-category'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('staff', listCategory, name='list-category'),
     path('add_category', addCategory, name='add-category'),
     path('update_category/<pk>', updateCategory, name='update-category'),
     path('delete_category/<pk>', deleteCategory, name='delete-category'),
