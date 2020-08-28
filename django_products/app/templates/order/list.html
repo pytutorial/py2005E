@@ -1,0 +1,33 @@
+<!--app/templates/order/list.html-->
+{% extends '../base.html' %}
+{%block navbar %}
+  {% with page=3 %}
+    {{block.super}}
+  {% endwith %}
+{%endblock%}
+
+{%block content %}
+<div class="container pt-3">
+  <table class="table table-bordered">
+    <tbody>
+      <tr class="text-center">
+        <th style="width: 5%;">#</th>
+        <th style="width: 40%;">Sản phẩm</th>
+        <th style="width: 40%;">Người mua</th>
+        <th style="width: 15%;"></th>
+      </tr>
+      {% for o in orderList %}
+        <tr class="text-center">
+          <td>{{ forloop.counter }}</td>
+          <td>{{ o.product.name }}</td>
+          <td>{{ o.fullname }}</td>
+          <td>
+            <a class="btn btn-sm btn-secondary"  
+              href="/view_order/{{o.id}}">Xem</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{%endblock%}

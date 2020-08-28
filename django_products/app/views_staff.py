@@ -71,3 +71,15 @@ def deleteProduct(request, pk):
     p = Product.objects.get(pk=pk)
     p.delete()
     return redirect('list-product')    
+
+@login_required
+def listOrder(request):
+    orderList = Order.objects.all()
+    context = {'orderList': orderList}
+    return render(request, 'order/list.html', context)
+
+@login_required
+def viewOrder(request, pk):
+    order = Order.objects.get(pk=pk)
+    context = {'order': order}
+    return render(request, 'order/detail.html', context)    

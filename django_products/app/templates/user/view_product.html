@@ -32,25 +32,27 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-6">
-        <image class='product-detail-image' src="images/ACER_0001.jpg">
+        <image class='product-detail-image' 
+          src="/{{product.image}}">
       </div>
 
       <div class="col-6 mt-5">
-        <div class='product-detail-title'>Acer 001</div>
+        <div class='product-detail-title'>{{product.name}}</div>
         <br>
         <table class="table">
           <tr>
             <td>Hãng sản xuất:</td>
-            <td>Acer</td>
+            <td>{{product.category.name}}</td>
           </tr>
           <tr>
             <td>Giá bán:</td>
-            <td><b>6.500.000 ₫</b></td>
+            <td><b>{{product.priceInt}} ₫</b></td>
           </tr>
         </table>
         <br>
-        <a class="btn btn-secondary" href="index.html">Quay lại</a>
-        <a class="btn btn-primary" href="order.html">Mua hàng</a>
+        <a class="btn btn-secondary" href="/">Quay lại</a>
+        <a class="btn btn-primary" 
+           href="/order_product/{{product.id}}">Mua hàng</a>
       </div>
     </div>
   </div>

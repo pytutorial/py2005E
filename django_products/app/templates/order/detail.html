@@ -1,0 +1,33 @@
+<!--app/templates/order/detail.html-->
+{% extends '../base.html' %}
+{%block navbar %}
+  {% with page=3 %}
+    {{block.super}}
+  {% endwith %}
+{%endblock%}
+
+{%block content %}
+<div class="container pt-3">
+  <h3>Chi tiết đơn hàng</h3>
+  <table class="table">
+    <tr>
+      <td>Sản phẩm:</td>
+      <td>{{order.product.name}}</td>
+    </tr>
+    <tr>
+      <td>Tên người mua:</td>
+      <td>{{order.fullname}}</td>
+    </tr>
+    <tr>
+      <td>Ngày đặt hàng:</td>
+      <td>{{order.orderDate|date:"d/m/Y H:i:s"}}</td>
+    </tr>
+    <tr>
+      <td>Trạng thái:</td>
+      <td>
+        {%if order.status == 0 %}Đang chờ nhận hàng {%endif%}
+      </td>
+    </tr>
+  </table>
+</div>
+{%endblock%}
