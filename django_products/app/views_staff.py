@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 @login_required
 def listCategory(request):
@@ -83,3 +84,18 @@ def viewOrder(request, pk):
     order = Order.objects.get(pk=pk)
     context = {'order': order}
     return render(request, 'order/detail.html', context)    
+
+@login_required
+def confirmOrder(request, pk):
+    order = Order.objects.get(pk=pk)
+    order.status = Order.OrderStatus.DELIVERED
+    order.deliverDate = datetime.now()
+    order.save()
+    return redirect('/list_order')
+
+@login_required
+def cancelOrder(request, pk):
+    order = Order.objects.get(pk=pk)
+    order.status = Order.OrderStatus.CANCELLED
+    order.save()
+    return redirect('/list_order')

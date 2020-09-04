@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
   integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
 <style>
   .product-image {
     width: 95%;
@@ -56,28 +58,71 @@
   </div>
 
   <div class="container mt-5 mb-5">
-    <form>
-      <input name="name" class="form-control" placeholder="Nhập tên sản phẩm để tìm">
-    </form>
-    <ul class="list-unstyled row">
-      {% for p in productList %}
-        <li class="list-item col-4 mt-3">
-          <div class='item-container'>
-            <a href="/view_product/{{p.id}}" class='product-item'>
-              <img src="/{{p.image}}" class='product-image'>
-              <div class="item-info">
-                <div>
-                  <span class='product-name'>{{p.name}}</span>
-                </div>
-                <div>
-                  <span class='price-title'>Giá bán :</span>
-                  <span class='price'>{{p.price}} ₫</span>
-                </div>
+    <div class="row">
+      <div class="col-9">
+        {%if not productList %}<span>Không có sản phẩm</span>{%endif%}
+        <ul class="list-unstyled row">
+          {% for p in productList %}
+            <li class="list-item col-4 mt-3">
+              <div class='item-container'>
+                <a href="/view_product/{{p.id}}" class='product-item'>
+                  <img src="/{{p.image}}" class='product-image'>
+                  <div class="item-info">
+                    <div>
+                      <span class='product-name'>{{p.name}}</span>
+                    </div>
+                    <div>
+                      <span class='price-title'>Giá bán :</span>
+                      <span class='price'>{{p.price}} ₫</span>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
+            </li>
+          {%endfor%}
+        </ul>
+
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="{{query_str}}&page=1">&lt;</a></li>
+          
+          {%if prev_page%}
+          <li class="page-item"><a class="page-link" href="{{query_str}}&page={{prev_page}}">{{prev_page}}</a></li>
+          {%endif%}
+
+          <li class="page-item active"><a class="page-link" href="{{query_str}}&page={{page}}">{{page}}</a></li>
+          
+          {%if next_page%}
+          <li class="page-item"><a class="page-link" href="{{query_str}}&page={{next_page}}">{{next_page}}</a></li>
+          {%endif%}
+
+          <li class="page-item"><a class="page-link" href="{{query_str}}&page={{num_page}}">&gt;</a></li>          
+        </ul>
+      </div>
+      <div class="col-3">
+        <form id="fmt" class="pt-5">
+         
+          <div class="form-group">
+            <label>Tên sản phẩm:</label>
+            {{form.name}}
           </div>
-        </li>
-      {%endfor%}
-    </ul>
+          <div class="form-group">
+            <label>Hãng sản xuất:</label>
+            {{form.category}}
+          </div>
+          <div class="form-group">
+            <label>Khoảng giá:</label>
+            {{form.priceRange}}
+          </div>     
+          <button class="btn btn-primary" type="submit">Tìm kiếm</button>     
+        </form>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(() => {
+    $('#fmt input').addClass('form-control');
+    $('#fmt select').addClass('form-control');
+  })
+</script>

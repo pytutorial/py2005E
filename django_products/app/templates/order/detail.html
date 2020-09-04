@@ -15,8 +15,24 @@
       <td>{{order.product.name}}</td>
     </tr>
     <tr>
+      <td>Số lượng:</td>
+      <td>{{order.qty}}</td>
+    </tr>
+    <tr>
+      <td>Đơn giá:</td>
+      <td>{{order.priceUnit}}</td>
+    </tr>
+    <tr>
       <td>Tên người mua:</td>
       <td>{{order.fullname}}</td>
+    </tr>
+    <tr>
+      <td>Điện thoại người mua:</td>
+      <td>{{order.phone}}</td>
+    </tr>
+    <tr>
+      <td>Địa chỉ người mua:</td>
+      <td>{{order.address}}</td>
     </tr>
     <tr>
       <td>Ngày đặt hàng:</td>
@@ -26,8 +42,29 @@
       <td>Trạng thái:</td>
       <td>
         {%if order.status == 0 %}Đang chờ nhận hàng {%endif%}
+        {%if order.status == 1 %}Đã giao hàng {%endif%}
+        {%if order.status == 2 %}Đã hủy {%endif%}
       </td>
-    </tr>
+    </tr>    
   </table>
+
+  <a class="btn btn-secondary" href="/list_order">Quay lại</a>
+
+  {%if order.status == 0 %}    
+    <button onclick="xacNhanGiaoHang()"  class="btn btn-primary">Xác nhận đã giao</button>      
+    <button onclick="huyDonHang()" class="btn btn-danger">Hủy đơn hàng</button>
+  {% endif %}  
 </div>
+<script>
+  function xacNhanGiaoHang() {
+    if(confirm('Xác nhận hàng đã giao?')) {
+      location.href = '/confirm_order/{{order.id}}';
+    }
+  }
+  function huyDonHang() {
+    if(confirm('Hủy đơn hàng này?')) {
+      location.href = '/cancel_order/{{order.id}}';
+    }
+  }
+</script>
 {%endblock%}
