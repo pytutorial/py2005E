@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<div class="container">
+  <div class="form-group">
+    <label>Nhóm chung</label>
+    <select onchange="changeRootCategory()" class="form-control" id='root_categ'>
+      <option>---Chọn nhóm---</option>
+      {%for c in rootCategoryList%}
+        <option value="{{c.id}}">{{c.name}}</option>
+      {%endfor%}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Nhóm chi tiết</label>
+    <select class="form-control" id='sub_categ'>
+    </select>
+  </div>
+</div>
+<script>
+  function renderOptions(categoryList) {
+    return (  
+      `
+        <option>---Chọn nhóm---</option>
+        ${categoryList.map(c => 
+          `<option value=${c.id}>${c.name}</option>`)
+        }
+      ` 
+    )
+  }
+
+  async function changeRootCategory() {
+    var rootId = document.getElementById('root_categ').value;
+    if(!rootId) {
+      document.getElementById('sub_categ').innerHTML = '';
+      return;
+    }
+    var resp = await fetch('/api/get_sub_category_list/' + rootId);
+    var subCategoryList = await resp.json();
+    var html = renderOptions(subCategoryList);
+    document.getElementById('sub_categ').innerHTML = html;
+  }
+</script>
